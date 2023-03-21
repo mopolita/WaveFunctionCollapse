@@ -1,4 +1,4 @@
-# wave-function-collapse
+# WaveFunctionCollapse
 Author : Alban Richard
  
  my own try at the implementation of the wave function collapse.
