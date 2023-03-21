@@ -33,7 +33,7 @@ char* init_grid(size_t nb_in)
 		if (filled[l*9 + c] == 0)
 		{
 			filled[l*9 + c] = 1;
-			// TODO: modify so function verifies that the number added is valid
+			// TODO: modify so function verifies that the number added is valid and changes it if not
 			char valid = 0;
 			while(valid == 0)
 			{
@@ -58,5 +58,14 @@ char* load_grid(char* path)
 
 void print_grid(char* grid)
 {
-	//TODO
+	char* res = "";
+	printf("|-----------------------------------|\n");
+	for(size_t l = 0; l < 9; l++)
+	{
+		for(size_t c = 0; c < 9; c++)
+		{
+			printf("| %d ", grid[l*9 + c]);
+		}
+		printf("|\n|-----------------------------------|\n");
+	}
 }
