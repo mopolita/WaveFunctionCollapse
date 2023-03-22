@@ -14,25 +14,37 @@ char* init_empty()
 	return grid;
 }
 
-char valid(char* grid, char l, char c)
+char valid(char* grid, char l, char c, char cell)
 {
-	size_t i;
-	for(i = 0; i < l; i++)
+	//TODO : ajouter le test pour la case de cell
+	char equal = 0;
+	size_t i = 0;
+	char lg = l/3;
+	char cg = c/3;
+	while(i < l && !equal)
 	{
-		
+		equal = grid[i*9 + c] == cell;
+		i++;
 	}
-	for(i = l+1; i < 9; i++)
+	i = l+1
+	while(i < 9 && !equal)
 	{
-		
+		equal = grid[i*9 + c] == cell;
+		i++;
 	}
-	for(i = 0; i < c; i++)
+	i = 0;
+	while(i < c && !equal)
 	{
-		
+		equal = grid[l*9 + i] == cell;
+		i++;
 	}
-	for(i = c+1; i < 9; i++)
+	i = c+1
+	while(i < 9 && !equal)
 	{
-		
+		equal = grid[l*9 + i] == cell;
+		i++;
 	}
+	return equal;
 }
 
 char* init_grid(size_t nb_in)
@@ -54,14 +66,13 @@ char* init_grid(size_t nb_in)
 		if (filled[l*9 + c] == 0)
 		{
 			filled[l*9 + c] = 1;
-			// TODO: modify so function verifies that the number added is valid and changes it if not
-/* 			char valid = 0;
-			while(valid == 0)
-			{
-				valid = 1;
-			} 
-*/
 			grid[l*9 + c] = rand() % 9;
+ 			char val = valid(grid, l,c);
+			while(val == 0)
+			{
+				grid[l*9 +c] = rand() % 9;
+				val = valid(grid, l,c);
+			}
 			i++;
 		}
 	}
