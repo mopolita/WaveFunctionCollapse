@@ -14,6 +14,27 @@ char* init_empty()
 	return grid;
 }
 
+char valid(char* grid, char l, char c)
+{
+	size_t i;
+	for(i = 0; i < l; i++)
+	{
+		
+	}
+	for(i = l+1; i < 9; i++)
+	{
+		
+	}
+	for(i = 0; i < c; i++)
+	{
+		
+	}
+	for(i = c+1; i < 9; i++)
+	{
+		
+	}
+}
+
 char* init_grid(size_t nb_in)
 {
 	int l;
@@ -34,11 +55,12 @@ char* init_grid(size_t nb_in)
 		{
 			filled[l*9 + c] = 1;
 			// TODO: modify so function verifies that the number added is valid and changes it if not
-			char valid = 0;
+/* 			char valid = 0;
 			while(valid == 0)
 			{
 				valid = 1;
-			}
+			} 
+*/
 			grid[l*9 + c] = rand() % 9;
 			i++;
 		}

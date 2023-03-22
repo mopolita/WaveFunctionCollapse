@@ -4,7 +4,8 @@ LDLIBS = -fsanitize=address
 
 all: main
 
-main: sudoku.o
+main: main.o solver.o sudoku.o
+solver.o: solver.c solver.h
 sudoku.o: sudoku.c sudoku.h
 
 .PHONY: clean
