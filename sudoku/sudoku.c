@@ -16,35 +16,43 @@ char* init_empty()
 
 char valid(char* grid, char l, char c, char cell)
 {
-	//TODO : ajouter le test pour la case de cell
-	char equal = 0;
+	char diff = 1;
 	size_t i = 0;
 	char lg = l/3;
 	char cg = c/3;
-	while(i < l && !equal)
+	for(i = 0; i<3; i++)
 	{
-		equal = grid[i*9 + c] == cell;
+		for(j = 0; j<3; j++)
+		{
+			char coord = (3*lg + i)*9 + 3*cg + j;
+			diff = cord != (l*9 + c) && grid[coord] != cell;
+		}
+	}
+	i = 0;
+	while(i < l-1 && diff)
+	{
+		diff = grid[i*9 + c] != cell;
 		i++;
 	}
-	i = l+1
-	while(i < 9 && !equal)
+	i = l+2
+	while(i < 9 && diff)
 	{
-		equal = grid[i*9 + c] == cell;
+		diff = grid[i*9 + c] != cell;
 		i++;
 	}
 	i = 0;
-	while(i < c && !equal)
+	while(i < c-1 && diff)
 	{
-		equal = grid[l*9 + i] == cell;
+		diff = grid[l*9 + i] != cell;
 		i++;
 	}
-	i = c+1
-	while(i < 9 && !equal)
+	i = c+2
+	while(i < 9 && diff)
 	{
-		equal = grid[l*9 + i] == cell;
+		diff = grid[l*9 + i] != cell;
 		i++;
 	}
-	return equal;
+	return diff;
 }
 
 char* init_grid(size_t nb_in)
