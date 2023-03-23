@@ -14,7 +14,6 @@ char* init_empty()
     return grid;
 }
 
-// There's an error int this code : it acts as if the cell it's testing is at the center of the 3*3 cell
 char valid(char* grid, char l, char c, char cell)
 {
     char diff = 1;
@@ -26,28 +25,28 @@ char valid(char* grid, char l, char c, char cell)
         for(j = 0; j<3; j++)
         {
             char coord = (3*lg + i)*9 + 3*cg + j;
-            diff = cord != (l*9 + c) && grid[coord] != cell;
+            diff = coord != (l*9 + c) && grid[coord] != cell;
         }
     }
     i = 0;
-    while(i < l-1 && diff)
+    while(i < lg*3 - 1 && diff)
     {
         diff = grid[i*9 + c] != cell;
         i++;
     }
-    i = l+2
+    i = lg*3 + 2;
     while(i < 9 && diff)
     {
         diff = grid[i*9 + c] != cell;
         i++;
     }
     i = 0;
-    while(i < c-1 && diff)
+    while(i < cg*3 - 1 && diff)
     {
         diff = grid[l*9 + i] != cell;
         i++;
     }
-    i = c+2
+    i = cg*3 + 2;
     while(i < 9 && diff)
     {
         diff = grid[l*9 + i] != cell;
