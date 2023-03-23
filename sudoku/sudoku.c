@@ -22,7 +22,7 @@ char valid(char* grid, char l, char c, char cell)
     char cg = c/3;
     for(i = 0; i<3; i++)
     {
-        for(j = 0; j<3; j++)
+        for(size_t j = 0; j<3; j++)
         {
             char coord = (3*lg + i)*9 + 3*cg + j;
             diff = coord != (l*9 + c) && grid[coord] != cell;
