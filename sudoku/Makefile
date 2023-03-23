@@ -11,5 +11,5 @@ sudoku.o: sudoku.c sudoku.h
 .PHONY: clean
 
 clean:
-	${RM} *.o
-	${RM} main
+    ${RM} *.o
+    ${RM} main

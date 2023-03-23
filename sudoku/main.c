@@ -4,8 +4,9 @@
 #include <errno.h>
 #include <err.h>
 #include "sudoku.h"
+#include "solver.h"
 
 int main(int argc, char* argv[])
 {
-	//TODO
+    //TODO
 }
