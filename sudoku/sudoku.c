@@ -14,6 +14,7 @@ char* init_empty()
     return grid;
 }
 
+// There's an error int this code : it acts as if the cell it's testing is at the center of the 3*3 cell
 char valid(char* grid, char l, char c, char cell)
 {
     char diff = 1;
@@ -76,6 +77,7 @@ char* init_grid(size_t nb_in)
             filled[l*9 + c] = 1;
             grid[l*9 + c] = rand() % 9;
             char val = valid(grid, l,c);
+            // Can produce incorrect grids in rare cases
             while(val == 0)
             {
                 grid[l*9 +c] = rand() % 9;
@@ -97,6 +99,7 @@ char* load_grid(char* path)
     //TODO
 }
 
+// Is there a way to make the grid more beautiful ?
 void print_grid(char* grid)
 {
     char* res = "";
