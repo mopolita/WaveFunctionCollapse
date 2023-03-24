@@ -6,13 +6,7 @@
 #include <err.h>
 #include "sudoku.h"
 
-char* init_empty()
-{
-    char* grid = calloc(81, sizeof(char));
-    if (grid == NULL)
-        err(1, NULL);
-    return grid;
-}
+#define BUFFER_SIZE 64
 
 char valid(char* grid, char l, char c, char cell)
 {
@@ -88,14 +82,35 @@ char* init_grid(size_t nb_in)
     return grid;
 }
 
-int save_grid(char* grid, char* path)
+void save_grid(char* grid, char* path)
 {
-    //TODO
+    FILE *fp;
+    fp = fopen(path, "w");
+    for(size_t i = 0; i < 81; i++)
+    {
+        fprintf(fp, "%d ", grid[i]);
+    }
+    fputc('\n', fp);
+    fclose(fp);
 }
 
 char* load_grid(char* path)
 {
-    //TODO
+    char c;
+    char* res = calloc(81, sizeof(char));
+    FILE *fp;
+    fp = fopen(path, "r");
+    size_t i = 0;
+    while(i < 81 && (c = getc(fp)) != EOF)
+    {
+        if(c >= 48 && c <= 57)
+        {
+            res[i] = c - 48;
+            i++;
+        }
+    }
+    fclose(fp);
+    return res;
 }
 
 // Is there a way to make the grid more beautiful ?

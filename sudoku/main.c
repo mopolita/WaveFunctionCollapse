@@ -30,9 +30,7 @@ void del(char** list, char val, size_t len)
         pos++;
     }
     if(pos >= 9)
-    {
-        errx(1, "An error occured during update of possibilities lists");
-    }
+        errx(1, "An error occured during update of possibilities lists"); 
     for(size_t i = pos-1; i < len - 1; i++)
     {
         list[i] = list[i + 1];

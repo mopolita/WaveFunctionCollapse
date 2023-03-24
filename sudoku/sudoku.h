@@ -1,11 +1,6 @@
 #ifndef SUDOKU
 #define SUDOKU
 
-
-//Initialises a sudoku grid in the form of a list.
-//Returns the empty grid.
-char* init_empty();
-
 //Initialises a sudoku grid in the form of a list.
 //nb_in = the number of cells already filled in.
 //Returns the grid partially filled.
