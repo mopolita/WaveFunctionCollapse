@@ -21,6 +21,11 @@ char** generate_lists(char* grid)
     }
 }
 
+size_t len(char* list)
+{
+    //TODO
+}
+
 //Removes an element "val" from a list of chars
 void del(char** list, char val, size_t len)
 {
@@ -30,7 +35,10 @@ void del(char** list, char val, size_t len)
         pos++;
     }
     if(pos >= 9)
-        errx(1, "An error occured during update of possibilities lists"); 
+    {
+        warnx("No deletion occured");
+        return;
+    } 
     for(size_t i = pos-1; i < len - 1; i++)
     {
         list[i] = list[i + 1];
@@ -39,37 +47,47 @@ void del(char** list, char val, size_t len)
     
 }
 
-//Update the lists of possibilities (unfinished)
+//Update the lists of possibilities
 void update_lists(char* grid, char** lists, char l, char c, char nb)
 {
     size_t i = 0;
     char lg = l/3;
     char cg = c/3;
+    char** curr;
     for(i = 0; i<3; i++)
     {
         for(size_t j = 0; j<3; j++)
         {
-            continue;
+            curr = &(lists[(3*lg + i)*9 + 3*cg + j]);
+            del(curr,nb ,len(curr));
         }
     }
     i = 0;
     while(i < lg*3 - 1 && diff)
     {
+        curr = &(grid[i*9 + c]);
+        del(curr, nb, len(curr));
         i++;
     }
     i = lg*3 + 2;
     while(i < 9 && diff)
     {
+        curr = &(grid[i*9 + c]);
+        del(curr, nb, len(curr));
         i++;
     }
     i = 0;
     while(i < cg*3 - 1 && diff)
     {
+        curr = &(grid[l*9 + i]);
+        del(curr, nb, len(curr));
         i++;
     }
     i = cg*3 + 2;
     while(i < 9 && diff)
     {
+        curr = &(grid[l*9 + i]);
+        del(curr, nb, len(curr));
         i++;
     }
 }

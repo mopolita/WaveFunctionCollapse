@@ -6,8 +6,6 @@
 #include <err.h>
 #include "sudoku.h"
 
-#define BUFFER_SIZE 64
-
 char valid(char* grid, char l, char c, char cell)
 {
     char diff = 1;
