@@ -102,13 +102,18 @@ char random_min_pos(char** lists)
 char* collapse_solver(char* grid, char alr_filled)
 {
     char** lists = generate_lists(grid);
-    char* nb;
+    char* list;
     char to_fill = 81 - alr_filled;
+    size_t len;
+    char nb;
     char min;
+    srand(time(NULL));
     while(to_fill > 0)
     {
         min = random_min_pos(lists);
-        nb = lists[min];
+        list = lists[min];
+        len = len(list);
+        nb  = list[(rand() % len)];
         grid[min] = nb;
         update_lists(grid, lists, min / 9, min % 9, nb);
         to_fill--;
