@@ -4,7 +4,6 @@
 #include <time.h>
 #include <errno.h>
 #include <err.h>
-#include "sudoku.h"
 
 char valid(char* grid, char l, char c, char cell)
 {
