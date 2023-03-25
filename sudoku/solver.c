@@ -7,18 +7,68 @@
 #include "sudoku.h"
 
 // Generates the possibilities lists of each cell
-char** generate_lists(char* grid)
+pos_list* generate_lists(char* grid)
 {
+    char** curr;
+    char poss[9] = {0};
+    size_t i = 0;
     for(size_t l = 0; i < 9; i++)
     {
         for(size_t c = 0; i < 9; i++)
         {
-            if(grid[l*9 +c] == 0)
+            for(size_t num = 1; num < 10; num++)
             {
-                //TODO
+                char found = 0;
+                if(grid[l*9 +c] == 0)
+                {
+                    char lg = l/3;
+                    char cg = c/3;
+                    for(i = 0; i<3; i++)
+                    {
+                        for(size_t j = 0; j<3; j++)
+                        {
+                            found = num == grid[(3*lg + i)*9 + 3*cg + j];
+                        }
+                    }
+                    i = 0;
+                    while(i < lg*3 - 1 && !found)
+                    {
+                        found = num == grid[i*9 + c];
+                        i++;
+                    }
+                    i = lg*3 + 2;
+                    while(i < 9 && !found)
+                    {
+                        found = num == grid[i*9 + c];
+                        i++;
+                    }
+                    i = 0;
+                    while(i < cg*3 - 1 && !found)
+                    {
+                        found = num == grid[l*9 + i];
+                        i++;
+                    }
+                    i = cg*3 + 2;
+                    while(i < 9 && !found)
+                    {
+                        found = num == grid[l*9 + i];
+                        i++;
+                    }
+                }
             }
         }
     }
+    char* res = calloc(9, sizeof(char));
+    size_t size = 0;
+    for(i = 0; i < 9; i++)
+    {
+        if(!poss[i])
+        {
+            res[size] = 1;
+            size++;
+        }
+    }
+    res = realloc(res, size*sizeof(char));
 }
 
 size_t len(char* list)
@@ -27,10 +77,10 @@ size_t len(char* list)
 }
 
 //Removes an element "val" from a list of chars
-void del(char** list, char val, size_t len)
+void del(pos_list* arr, char val)
 {
     size_t pos = 0;
-    while(pos < 9 && *list[pos] != val)
+    while(pos < 9 && arr->list[pos] != val)
     {
         pos++;
     }
@@ -38,17 +88,17 @@ void del(char** list, char val, size_t len)
     {
         warnx("No deletion occured");
         return;
-    } 
-    for(size_t i = pos-1; i < len - 1; i++)
-    {
-        list[i] = list[i + 1];
     }
-    *list = realloc(*list, (len - 1)*sizeof(char));
-    
+    for(size_t i = pos-1; i < arr->len - 1; i++)
+    {
+        arr->list[i] = arr->list[i + 1];
+    }
+    arr->len--;
+    *(arr->list) = realloc(*list, (arr->len)*sizeof(char));
 }
 
 //Update the lists of possibilities
-void update_lists(char* grid, char** lists, char l, char c, char nb)
+void update_lists(char* grid, pos_list* lists, char l, char c, char nb)
 {
     size_t i = 0;
     char lg = l/3;
@@ -63,28 +113,28 @@ void update_lists(char* grid, char** lists, char l, char c, char nb)
         }
     }
     i = 0;
-    while(i < lg*3 - 1 && diff)
+    while(i < lg*3 - 1)
     {
         curr = &(grid[i*9 + c]);
         del(curr, nb, len(curr));
         i++;
     }
     i = lg*3 + 2;
-    while(i < 9 && diff)
+    while(i < 9)
     {
         curr = &(grid[i*9 + c]);
         del(curr, nb, len(curr));
         i++;
     }
     i = 0;
-    while(i < cg*3 - 1 && diff)
+    while(i < cg*3 - 1)
     {
         curr = &(grid[l*9 + i]);
         del(curr, nb, len(curr));
         i++;
     }
     i = cg*3 + 2;
-    while(i < 9 && diff)
+    while(i < 9)
     {
         curr = &(grid[l*9 + i]);
         del(curr, nb, len(curr));
@@ -93,7 +143,7 @@ void update_lists(char* grid, char** lists, char l, char c, char nb)
 }
 
 //Gets a position for one of the cells with the minimal possibilities
-char random_min_pos(char** lists)
+char random_min_pos(pos_list* lists)
 {
     //TODO
 }
