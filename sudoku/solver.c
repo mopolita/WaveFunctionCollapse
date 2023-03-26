@@ -151,7 +151,7 @@ char random_min_pos(pos_list* lists)
 //The solver of the Sudoku, using an implementation of the Wave Collapse function
 char* collapse_solver(char* grid, char alr_filled)
 {
-    char** lists = generate_lists(grid);
+    pos_list* lists = generate_lists(grid);
     char* list;
     char to_fill = 81 - alr_filled;
     size_t len;
@@ -161,7 +161,7 @@ char* collapse_solver(char* grid, char alr_filled)
     while(to_fill > 0)
     {
         min = random_min_pos(lists);
-        list = lists[min];
+        list = (lists[min]).list;
         len = len(list);
         nb  = list[(rand() % len)];
         grid[min] = nb;
