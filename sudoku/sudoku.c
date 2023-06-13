@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <time.h>
 #include <errno.h>
-#include <err.h>
 
 char valid(char* grid, char l, char c, char cell)
 {

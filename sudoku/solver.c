@@ -3,8 +3,6 @@
 #include <unistd.h>
 #include <time.h>
 #include <errno.h>
-#include <err.h>
-#include "sudoku.h"
 
 // Generates the possibilities lists of each cell
 pos_list* generate_lists(char* grid)

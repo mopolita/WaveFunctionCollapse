@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <time.h>
 #include <errno.h>
-#include <err.h>
 #include "sudoku.h"
 #include "solver.h"
 
