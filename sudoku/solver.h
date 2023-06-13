@@ -1,11 +1,11 @@
 #ifndef SOLVER
 #define SOLVER
 
-struct positions_list
+struct pos_list
 {
     size_t len;
     char* list;
-} pos_list;
+};
 
 // Generates the possibilities lists of each cell
 // grid = the grid wich lists are to be generated
