@@ -5,7 +5,7 @@
 #include <errno.h>
 
 // Generates the possibilities lists of each cell
-pos_list* generate_lists(char* grid)
+char** generate_lists(char* grid)
 {
     char** curr;
     char poss[9] = {0};
@@ -75,7 +75,7 @@ size_t len(char* list)
 }
 
 //Removes an element "val" from a list of chars
-void del(pos_list* arr, char val)
+void del(char** arr, char val)
 {
     size_t pos = 0;
     while(pos < 9 && arr->list[pos] != val)
@@ -96,7 +96,7 @@ void del(pos_list* arr, char val)
 }
 
 //Update the lists of possibilities
-void update_lists(char* grid, pos_list* lists, char l, char c, char nb)
+void update_lists(char* grid, char** lists, char l, char c, char nb)
 {
     size_t i = 0;
     char lg = l/3;
@@ -141,7 +141,7 @@ void update_lists(char* grid, pos_list* lists, char l, char c, char nb)
 }
 
 //Gets a position for one of the cells with the minimal possibilities
-char random_min_pos(pos_list* lists)
+char random_min_pos(char** lists)
 {
     //TODO
 }
@@ -149,7 +149,7 @@ char random_min_pos(pos_list* lists)
 //The solver of the Sudoku, using an implementation of the Wave Collapse function
 char* collapse_solver(char* grid, char alr_filled)
 {
-    pos_list* lists = generate_lists(grid);
+    char** lists = generate_lists(grid);
     char* list;
     char to_fill = 81 - alr_filled;
     size_t len;

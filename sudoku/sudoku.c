@@ -4,7 +4,7 @@
 #include <time.h>
 #include <errno.h>
 
-char valid(char* grid, char l, char c, char cell)
+char valid(char* grid, char l, char c, char nb)
 {
     char diff = 1;
     size_t i = 0;
@@ -15,31 +15,31 @@ char valid(char* grid, char l, char c, char cell)
         for(size_t j = 0; j<3; j++)
         {
             char coord = (3*lg + i)*9 + 3*cg + j;
-            diff = coord != (l*9 + c) && grid[coord] != cell;
+            diff = coord != (l*9 + c) && grid[coord] != nb;
         }
     }
     i = 0;
     while(i < lg*3 - 1 && diff)
     {
-        diff = grid[i*9 + c] != cell;
+        diff = grid[i*9 + c] != nb;
         i++;
     }
     i = lg*3 + 2;
     while(i < 9 && diff)
     {
-        diff = grid[i*9 + c] != cell;
+        diff = grid[i*9 + c] != nb;
         i++;
     }
     i = 0;
     while(i < cg*3 - 1 && diff)
     {
-        diff = grid[l*9 + i] != cell;
+        diff = grid[l*9 + i] != nb;
         i++;
     }
     i = cg*3 + 2;
     while(i < 9 && diff)
     {
-        diff = grid[l*9 + i] != cell;
+        diff = grid[l*9 + i] != nb;
         i++;
     }
     return diff;
@@ -61,17 +61,18 @@ char* init_grid(size_t nb_in)
     {
         l = rand() % 9;
         c = rand() % 9;
-        if (filled[l*9 + c] == 0)
+        if (!filled[l*9 + c])
         {
             filled[l*9 + c] = 1;
-            grid[l*9 + c] = rand() % 9;
-            char val = valid(grid, l,c);
+            int toplace = rand() % 9;
+            char val = valid(grid, l,c, toplace);
             // Can produce incorrect grids in rare cases
             while(val == 0)
             {
-                grid[l*9 +c] = rand() % 9;
-                val = valid(grid, l,c);
+                toplace = rand() % 9;
+                val = valid(grid, l, c, toplace);
             }
+            grid[l*9 + c] = toplace;
             i++;
         }
     }
@@ -93,7 +94,7 @@ void save_grid(char* grid, char* path)
 char* load_grid(char* path)
 {
     char c;
-    char* res = calloc(81, sizeof(char));
+    char* grid = calloc(81, sizeof(char));
     FILE *fp;
     fp = fopen(path, "r");
     size_t i = 0;
@@ -101,12 +102,12 @@ char* load_grid(char* path)
     {
         if(c >= 48 && c <= 57)
         {
-            res[i] = c - 48;
+            grid[i] = c - 48;
             i++;
         }
     }
     fclose(fp);
-    return res;
+    return grid;
 }
 
 // Is there a way to make the grid more beautiful ?

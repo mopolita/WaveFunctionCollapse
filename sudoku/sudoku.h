@@ -1,12 +1,6 @@
 #ifndef SUDOKU
 #define SUDOKU
 
-struct pos_list
-{
-    size_t len;
-    char* list;
-};
-
 // Initialises a sudoku grid in the form of a list.
 // nb_in = the number of cells already filled in.
 // Returns the grid partially filled.
